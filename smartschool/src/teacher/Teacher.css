@@ -1,0 +1,10 @@
+/* src/teacher/Teacher.css */
+/* Use admin theme — import existing admin css (adjust path if needed) */
+@import "../admin/admin.css";
+
+/* teacher-specific overrides (if any) */
+.dashboard-title {
+  /* keep same look but label changed via JSX; no extra changes needed */
+}
+
+/* add any teacher-only overrides here if desired */
