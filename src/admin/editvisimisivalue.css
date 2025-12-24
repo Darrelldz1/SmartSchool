@@ -1,0 +1,366 @@
+/* editvisimisivalue.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+.edit-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header Styles */
+.header {
+  background-color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.brand-name {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1.2;
+  color: #333;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #666;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: #667eea;
+}
+
+.logout-btn {
+  background: linear-gradient(135deg, #56CCF2, #2F80ED);
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.logout-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Page Header */
+.page-header {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.page-title {
+  color: white;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Content Wrapper */
+.content-wrapper {
+  flex: 1;
+  padding: 30px 40px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Section Card */
+.section-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.section-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.upload-btn {
+  background: #4A90E2;
+  color: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+}
+
+.upload-btn:hover {
+  background: #357ABD;
+}
+
+/* Image Preview */
+.image-preview {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.image-placeholder {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.visi-image {
+  background: linear-gradient(135deg, #FF6B6B, #FFD93D);
+  border: 8px solid #FFE5B4;
+}
+
+.misi-image {
+  background: linear-gradient(135deg, #6BCF7F, #4CAF50);
+  border: 8px solid #B8E6B8;
+}
+
+.values-image {
+  background: linear-gradient(135deg, #FF8C42, #FF6B35);
+  border: 8px solid #FFCBA4;
+}
+
+.image-text {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.values-text {
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+/* Editor Wrapper */
+.editor-wrapper {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+}
+
+/* Editor Toolbar */
+.editor-toolbar {
+  background: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.font-select {
+  padding: 4px 8px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  background: white;
+  font-size: 12px;
+  cursor: pointer;
+  outline: none;
+}
+
+.toolbar-divider {
+  width: 1px;
+  height: 20px;
+  background: #dee2e6;
+  margin: 0 5px;
+}
+
+.toolbar-btn {
+  width: 28px;
+  height: 28px;
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: all 0.2s;
+  color: #495057;
+}
+
+.toolbar-btn:hover {
+  background: #e9ecef;
+  border-color: #ced4da;
+}
+
+.close-btn {
+  margin-left: auto;
+  color: #6c757d;
+}
+
+.color-indicator {
+  display: block;
+  width: 14px;
+  height: 3px;
+  background: red;
+  margin-top: -2px;
+}
+
+/* Editor Content */
+.editor-content {
+  width: 100%;
+  min-height: 150px;
+  padding: 12px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  line-height: 1.6;
+  resize: vertical;
+  font-family: inherit;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.save-btn {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 12px 40px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.save-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+/* Footer */
+.footer {
+  background: rgba(0, 0, 0, 0.2);
+  color: white;
+  text-align: center;
+  padding: 15px;
+  font-size: 12px;
+  margin-top: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-menu {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .content-wrapper {
+    padding: 20px;
+  }
+  
+  .section-card {
+    padding: 20px;
+  }
+  
+  .editor-toolbar {
+    overflow-x: auto;
+  }
+  
+  .image-placeholder {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .image-text {
+    font-size: 18px;
+  }
+  
+  .values-text {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .page-title {
+    font-size: 20px;
+  }
+  
+  .toolbar-btn {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+  
+  .save-btn {
+    padding: 10px 30px;
+  }
+}
