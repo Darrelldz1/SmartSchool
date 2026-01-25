@@ -6,7 +6,7 @@ import "./listpengumuman.css";
 
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:5000";
 
-export default function Listpengumuman() {
+export default function ListPengumuman() {
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
