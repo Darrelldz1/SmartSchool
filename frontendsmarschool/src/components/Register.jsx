@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../auth/AuthProvider";
 import Header, { HEADER_HEIGHT } from "../components/Header";
-import Footer from "../components/Footer";
-import "./register.css";
+import Footer from "./Footer";
+import "./Register.css";
 import illustrationAsset from "../assets/ilustrasi.png"; // optional local asset
 
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:5000";

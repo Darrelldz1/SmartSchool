@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthProvider";
 import Header, { HEADER_HEIGHT } from "./Header";
-import Footer from "./Footer";
+import Footer from './Footer';
 import "./login.css";
 import illustrationAsset from "../assets/ilustrasi.png"; // optional local asset
 
