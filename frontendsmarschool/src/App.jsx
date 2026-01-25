@@ -5,18 +5,16 @@ import ProtectedRoute from "./admin/ProtectedRoute";
 
 // Public pages...
 import LandingPage from "./components/LandingPage";
-import Login from "./components/login";
+import Login from "./components/Login";
 import Register from "./components/Register";
 import ResetPassword from "./components/ResetPassword";
-import Visi from "./components/visi";
-import Sekolah from "./components/sekolah";
-import CreateVisi from "./components/createvasu";
-import CreateSekolah from "./components/createsekoluh";
-import NewsListPublic from "./components/newsListPublic";
+import Visi from "./components/Visi";
+import Sekolah from "./components/Sekolah";
+import NewsListPublic from "./components/NewsListPublic";
 import NewsDetail from "./components/NewsDetail";
 import GalleryListPublic from "./components/GalleryListPublic";
 import PengumumanDetail from "./components/PengumumanDetail";
-import Listpengumuman from "./components/ListPengumuman";
+import Listpengumuman from "./components/Listpengumuman";
 import Headmaster from "./components/Headmaster";
 import Teacher from "./components/Teacher";
 import Programs from "./components/Programs";
@@ -26,13 +24,12 @@ import ProgramDetail from "./components/ProgramDetail";
 import AdminLayout from "./admin/AdminLayout";
 import AdminDashboard from "./admin/AdminDashboard";
 import HistoryAdmin from "./admin/HistoryAdmin";
-import VisiList from "./admin/ProfileAdmin";
-import EditVisiMisiValue from "./admin/editvisimisivalue";
-import SekolahList from "./admin/SekolahList";
+import ProfileAdmin from "./admin/ProfileAdmin";
+import EditVisiMisiValue from "./admin/EditVisiMisiValue";
 import EditSejarahForm from "./admin/EditSejarahForm";
 import NewsList from "./admin/NewsList";
 import CreateNews from "./admin/CreateNews";
-import EditNews from "./admin/Editnews";
+import EditNews from "./admin/EditNews";
 import GalleryList from "./admin/GalleryList";
 import GalleryForm from "./admin/GalleryForm";
 import PengumumanAdmin from "./admin/PengumumanAdmin";
@@ -60,8 +57,6 @@ export default function App() {
       <Route path="/news/:id" element={<NewsDetail />} />
       <Route path="/sekolah" element={<Sekolah />} />
       <Route path="/gallery" element={<GalleryListPublic />} />
-      <Route path="/create-visi" element={<CreateVisi />} />
-      <Route path="/create-sekolah" element={<CreateSekolah />} />
       <Route path="/pengumuman" element={<Listpengumuman />} />
       <Route path="/pengumuman/:id" element={<PengumumanDetail />} />
       <Route path="/headmaster" element={<Headmaster />} />
@@ -82,7 +77,7 @@ export default function App() {
         }
       >
         <Route index element={<AdminDashboard />} />
-        <Route path="visi" element={<VisiList />} />
+        <Route path="visi" element={<ProfileAdmin />} />
         <Route path="sejarah" element={<HistoryAdmin />} />
         <Route path="edit-sejarah" element={<EditSejarahForm />} />
         <Route path="newslist" element={<NewsList />} />
