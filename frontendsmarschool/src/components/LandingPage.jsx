@@ -80,7 +80,7 @@ const LandingPage = () => {
       title: "Selamat Datang di",
       highlight: "SMART SCHOOL",
       subtitle: "Membentuk Generasi Unggul, Berakhlak Mulia, dan Berdaya Saing Global",
-      imagePath: '/beranda backgrounds 1.jpeg'
+      imagePath: '/beranda 1.jpg'
     },
     {
       id: 2,
