@@ -56,6 +56,9 @@ app.use('/api/ptk/anak', ptkAnak);
 app.use('/api/ptk/test-bahasa', ptkTestBahasa);
 app.use('/api/ptk/mapel', ptkMapel);
 app.use('/api/ptk/tugas', ptkTugasTambahan);
+app.use('/api/program', programRoutes);
+app.use("/uploads", express.static("uploads"));
+
 
 
 // === Root endpoint ===
