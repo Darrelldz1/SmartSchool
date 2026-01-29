@@ -2,8 +2,8 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthProvider';
-import Header from './Header';  // Import Header
-import Footer from './Footer';  // Import Footer
+import Header from './Header';
+import Footer from './Footer';
 import './LandingPage.css';
 
 const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5000';
@@ -11,7 +11,7 @@ const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5000';
 const LandingPage = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  
+
   // Data states
   const [newsList, setNewsList] = useState([]);
   const [galleryList, setGalleryList] = useState([]);
@@ -21,6 +21,11 @@ const LandingPage = () => {
   const [headmaster, setHeadmaster] = useState(null);
   const [teachers, setTeachers] = useState([]);
   const [programs, setPrograms] = useState([]);
+
+  // Slider (hero) state from backend
+  const [sliderList, setSliderList] = useState([]);
+  const [loadingSlider, setLoadingSlider] = useState(false);
+  const [errorSlider, setErrorSlider] = useState(null);
 
   // Loading states
   const [loadingHistory, setLoadingHistory] = useState(false);
@@ -74,53 +79,64 @@ const LandingPage = () => {
     beritaFallback: '/vite.svg',
   };
 
+  // user-provided slides constant (hardcoded text must remain)
   const slides = [
     {
       id: 1,
       title: "Selamat Datang di",
       highlight: "SMART SCHOOL",
       subtitle: "Membentuk Generasi Unggul, Berakhlak Mulia, dan Berdaya Saing Global",
-      imagePath: '/beranda 1.jpg'
     },
     {
       id: 2,
       title: "SMANSA BERSATU",
       highlight: "# SAVE SMANSA BANDUNG",
       subtitle: "Mohon doa & dukungan untuk keluarga SMAN 1 Bandung dalam sidang gugatan sertifikat tanah",
-      imagePath: '/beranda background 2.jpeg'
     },
     {
       id: 3,
       title: "Welcome to",
       highlight: "Smart School",
       subtitle: "Selamat untuk belajar di SMK SMART SCHOOL - Pendidikan Berkualitas untuk Masa Depan Gemilang",
-      imagePath: '/beranda background 3.jpeg'
     }
   ];
 
-  /* ---------- HERO slider logic ---------- */
+  // slidesToShow: gunakan teks dari `slides` (hardcode) dan ambil gambar dari sliderList jika ada pada index yang sama.
+  const slidesToShow = slides.map((slide, idx) => ({
+    id: slide.id ?? `slide-${idx}`,
+    title: slide.title,
+    highlight: slide.highlight,
+    subtitle: slide.subtitle,
+    imagePath: (sliderList && sliderList[idx] && sliderList[idx].image) ? sliderList[idx].image : `/beranda background ${idx + 1}.jpeg`
+  }));
+
+  /* ---------- HERO slider logic (autoplay) ---------- */
   useEffect(() => {
     let interval;
-    if (isAutoPlaying) {
+    const slidesLen = slidesToShow.length; // always follow hardcoded slides length
+    if (isAutoPlaying && slidesLen > 1) {
       interval = setInterval(() => {
-        setCurrentSlide(prev => (prev + 1) % slides.length);
+        setCurrentSlide(prev => (prev + 1) % slidesLen);
       }, 10000);
     }
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isAutoPlaying, slides.length]);
+  }, [isAutoPlaying, /* depend on sliderList too so images update slide content */ sliderList]);
 
   const nextSlide = useCallback(() => {
-    setCurrentSlide(prev => (prev + 1) % slides.length);
-  }, [slides.length]);
+    const slidesLen = slidesToShow.length;
+    setCurrentSlide(prev => (prev + 1) % slidesLen);
+  }, [/* slidesToShow may reference sliderList; include sliderList to keep stable */ sliderList]);
 
   const prevSlide = useCallback(() => {
-    setCurrentSlide(prev => (prev - 1 + slides.length) % slides.length);
-  }, [slides.length]);
+    const slidesLen = slidesToShow.length;
+    setCurrentSlide(prev => (prev - 1 + slidesLen) % slidesLen);
+  }, [sliderList]);
 
   const goToSlide = (index) => {
-    setCurrentSlide(index);
+    const slidesLen = slidesToShow.length;
+    setCurrentSlide(((index % slidesLen) + slidesLen) % slidesLen);
   };
 
   const handleMouseEnter = () => {
@@ -178,6 +194,7 @@ const LandingPage = () => {
     if (item.photo) return (item.photo.startsWith('http') ? item.photo : `${API_BASE}${item.photo.startsWith('/') ? '' : '/'}${item.photo}`);
     if (item.image) return (item.image.startsWith('http') ? item.image : `${API_BASE}${item.image.startsWith('/') ? '' : '/'}${item.image}`);
     if (item.image_path) return (item.image_path.startsWith('http') ? item.image_path : `${API_BASE}${item.image_path.startsWith('/') ? '' : '/'}${item.image_path}`);
+    if (item.path) return (item.path.startsWith('http') ? item.path : `${API_BASE}${item.path.startsWith('/') ? '' : '/'}${item.path}`);
     return null;
   };
 
@@ -200,7 +217,47 @@ const LandingPage = () => {
     return clean.length > n ? clean.slice(0, n).trim() + '...' : clean;
   };
 
-  /* ---------- Fetch data ---------- */
+  /* ---------- Fetch slider from backend ---------- */
+  useEffect(() => {
+    let mounted = true;
+    setLoadingSlider(true);
+    setErrorSlider(null);
+
+    fetch(`${API_BASE}/api/slider`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then((data) => {
+        if (!mounted) return;
+        const mapped = (Array.isArray(data) ? data : []).map((s) => ({
+          id: s.id,
+          image: imageUrlFor(s) || s.image || s.photo || s.photo_url || null,
+          // keep original metadata if backend provides it (won't be used for text in UI),
+          title: s.title || s.caption || '',
+          subtitle: s.subtitle || '',
+          position: (s.position !== undefined && s.position !== null) ? Number(s.position) : null,
+        }));
+        mapped.sort((a,b) => {
+          const pa = a.position ?? 9999;
+          const pb = b.position ?? 9999;
+          if (pa !== pb) return pa - pb;
+          if ((a.id || 0) < (b.id || 0)) return -1;
+          if ((a.id || 0) > (b.id || 0)) return 1;
+          return 0;
+        });
+        setSliderList(mapped);
+      })
+      .catch((err) => {
+        console.error('fetch slider err', err);
+        if (mounted) setErrorSlider('Gagal memuat slider');
+      })
+      .finally(() => { if (mounted) setLoadingSlider(false); });
+
+    return () => { mounted = false; };
+  }, []);
+
+  /* ---------- Fetch other data (news, profile, gallery, etc.) ---------- */
   useEffect(() => {
     let mounted = true;
     setLoadingNews(true);
@@ -513,29 +570,7 @@ const LandingPage = () => {
       <div style={{ height: '60px' }} />
 
       {/* GLOBAL INLINE STYLE PATCH */}
-      <style>{`
-        /* Berita card tweaks */
-        .berita-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(2,6,23,0.06); display: flex; flex-direction: column; }
-        .berita-image { height: 180px; background-color: #eef2ff; display: flex; align-items: center; justify-content: center; }
-        .berita-title { margin: 14px 16px 6px 16px; font-size: 1.05rem; font-weight: 800; color: #0f172a; line-height: 1.15; }
-        .berita-meta { margin: 0 16px 6px 16px; font-size: 0.825rem; color: #6b7280; }
-        .berita-content { padding: 0 16px 16px 16px; display: flex; flex-direction: column; flex: 1; }
-        .berita-text {
-          margin: 6px 0 0 0;
-          font-size: 0.95rem;
-          color: #4b5563;
-          line-height: 1.25;
-          display: -webkit-box;
-          -webkit-line-clamp: 4;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-        .berita-actions { margin-top: 12px; display: flex; gap: 8px; align-items: center; }
-        @media (max-width: 880px) {
-          .berita-image { height: 160px; }
-        }
-      `}</style>
+      <style>{`\n        /* Berita card tweaks */\n        .berita-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(2,6,23,0.06); display: flex; flex-direction: column; }\n        .berita-image { height: 180px; background-color: #eef2ff; display: flex; align-items: center; justify-content: center; }\n        .berita-title { margin: 14px 16px 6px 16px; font-size: 1.05rem; font-weight: 800; color: #0f172a; line-height: 1.15; }\n        .berita-meta { margin: 0 16px 6px 16px; font-size: 0.825rem; color: #6b7280; }\n        .berita-content { padding: 0 16px 16px 16px; display: flex; flex-direction: column; flex: 1; }\n        .berita-text {\n          margin: 6px 0 0 0;\n          font-size: 0.95rem;\n          color: #4b5563;\n          line-height: 1.25;\n          display: -webkit-box;\n          -webkit-line-clamp: 4;\n          -webkit-box-orient: vertical;\n          overflow: hidden;\n          text-overflow: ellipsis;\n        }\n        .berita-actions { margin-top: 12px; display: flex; gap: 8px; align-items: center; }\n        @media (max-width: 880px) {\n          .berita-image { height: 160px; }\n        }\n      `}</style>
 
       {/* SLIDER HERO SECTION */}
       <section
@@ -546,7 +581,7 @@ const LandingPage = () => {
         style={{ position: 'relative', height: '68vh', minHeight: 420, overflow: 'hidden' }}
       >
         <div className="slider-container" style={{ position: 'relative', width: '100%', height: '100%' }}>
-          {slides.map((slide, index) => {
+          {slidesToShow.map((slide, index) => {
             const bg = {
               backgroundImage: `linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.25)), ${bgUrl(slide.imagePath || `/beranda background ${index+1}.jpeg`)}`,
               backgroundSize: 'cover',
@@ -571,6 +606,7 @@ const LandingPage = () => {
                   justifyContent: 'center',
                   padding: '2rem',
                 }}
+                aria-hidden={index !== currentSlide}
               >
                 <div className="hero-content" style={{ maxWidth: '1200px', width: '100%', zIndex: 2, color: '#fff' }}>
                   <h1 className="hero-title" style={{ margin: 0 }}>
@@ -584,7 +620,7 @@ const LandingPage = () => {
                       display: 'block',
                       lineHeight: 1
                     }}>
-                      {slide.highlight}
+                      {slide.highlight || slide.title}
                     </span>
                   </h1>
 
@@ -661,7 +697,7 @@ const LandingPage = () => {
             display: 'flex',
             gap: '0.5rem'
           }}>
-            {slides.map((_, index) => (
+            {slidesToShow.map((_, index) => (
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
@@ -1031,7 +1067,7 @@ const LandingPage = () => {
 
           <div className="text-center" style={{ marginTop: 18 }}>
             <button
-        className="btn-pill-primary"
+              className="btn-pill-primary"
               onClick={() => navigate('/news')}
             >
               BACA BERITA LAINNYA
@@ -1282,7 +1318,7 @@ const LandingPage = () => {
               {announcements.length > 3 && (
                 <div className="text-center" style={{ marginTop: '2rem' }}>
                   <button
-  className="btn-pill-primary"
+                    className="btn-pill-primary"
                     onClick={openPengumumanList}
                   >
                     LIHAT SEMUA PENGUMUMAN

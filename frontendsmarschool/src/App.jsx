@@ -41,6 +41,7 @@ import ProgramAdmin from "./admin/ProgramAdmin";
 import ProgramForm from "./admin/ProgramForm";
 import OrangTuaAdmin from "./admin/OrangTuaAdmin";
 import AdminHeadmaster from "./admin/AdminHeadmaster";
+import SliderAdmin from './admin/SliderAdmin';
 
 import "./index.css";
 
@@ -83,6 +84,7 @@ export default function App() {
         <Route path="newslist" element={<NewsList />} />
         <Route path="createnews" element={<CreateNews />} />
         <Route path="editnews/:id" element={<EditNews />} />
+        <Route path="slider" element={<SliderAdmin />} />
 
         {/* Gallery */}
         <Route path="gallery/create" element={<GalleryForm />} />
