@@ -232,17 +232,42 @@ body,
 /* =========================
    ILLUSTRATION
    ========================= */
-.illustration-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.book-illustration {
+/* =========================
+   SCHOOL ILLUSTRATION
+   ========================= */
+.illustration-card {
   width: 500px;
   height: 450px;
-  position: relative;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
+
+.school-illustration {
+  width: 100%;
+  max-width: 420px;
+  animation: floatSoft 6s ease-in-out infinite;
+}
+
+/* animasi lembut */
+@keyframes floatSoft {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
 
 .book-pages {
   background: rgba(255, 255, 255, 0.95);

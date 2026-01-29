@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../auth/AuthProvider"; // pastikan path benar
 import "./login.css";
+import schoolIllustration from "@/assets/school-illustration.svg";
 
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:5000";
 
@@ -141,34 +142,15 @@ export default function Login() {
       <main className="main-content">
         <div className="content-wrapper">
           {/* Left Side - Illustration */}
-          <div className="illustration-section">
-            <div className="book-illustration">
-              <div className="book-pages">
-                <div className="floating-icons">
-                  <span className="icon graph">📊</span>
-                  <span className="icon chart">📈</span>
-                  <span className="icon bulb">💡</span>
-                  <span className="icon gear">⚙️</span>
-                  <span className="icon pencil">✏️</span>
-                  <span className="icon book">📚</span>
-                  <span className="icon calculator">🧮</span>
-                  <span className="icon globe">🌍</span>
-                  <span className="icon atom">⚛️</span>
-                  <span className="icon microscope">🔬</span>
-                </div>
-                <div className="city-skyline">
-                  <div className="building building-1"></div>
-                  <div className="building building-2"></div>
-                  <div className="building building-3"></div>
-                  <div className="building building-4"></div>
-                  <div className="building building-5"></div>
-                  <div className="building building-6"></div>
-                  <div className="building building-7"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
+        <div className="illustration-section">
+  <div className="illustration-card">
+    <img
+      src={schoolIllustration}
+      alt="Ilustrasi Sekolah"
+      className="school-illustration"
+    />
+  </div>
+</div>
           {/* Right Side - Login Form */}
           <div className="login-section">
             <div className="login-card">
