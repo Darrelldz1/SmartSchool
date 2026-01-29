@@ -1,0 +1,355 @@
+/* sejarah.css - Tentang Sekolah Styles */
+
+/* ========== CONTAINER STYLES ========== */
+
+/* Container utama dengan gradient background */
+.sejarah-container {
+  background: linear-gradient(135deg, #e5e7eb 0%, #e5e7eb 50%, #e5e7eb 100%);
+  min-height: 100vh;
+  padding: 30px;
+}
+
+/* Wrapper konten */
+.sejarah-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 15px;
+  padding: 40px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+/* ========== HEADER SECTION ========== */
+
+.sejarah-header {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 3px solid #e6f2ff;
+}
+
+.sejarah-header h1 {
+  color: #2d3748;
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(135deg, #1e5ba8 0%, #3498db 50%, #f39c12 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ========== CONTENT STYLES ========== */
+
+.sejarah-content-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  border: 2px solid #e6f2ff;
+  position: relative;
+  overflow: hidden;
+}
+
+.sejarah-content-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+
+.sejarah-description {
+  white-space: pre-wrap;
+  color: #4a5568;
+  font-size: 16px;
+  line-height: 1.8;
+  margin: 0;
+  text-align: justify;
+}
+
+.sejarah-description::first-letter {
+  font-size: 3em;
+  font-weight: 700;
+  float: left;
+  line-height: 0.9;
+  margin: 0.1em 0.1em 0 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Updated timestamp */
+.sejarah-timestamp {
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #e6f2ff;
+  font-size: 13px;
+  color: #718096;
+  text-align: right;
+  font-style: italic;
+}
+
+.sejarah-timestamp::before {
+  content: '📅 ';
+  margin-right: 5px;
+}
+
+/* ========== EMPTY STATE ========== */
+
+.sejarah-empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: #a0aec0;
+}
+
+.sejarah-empty-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  opacity: 0.4;
+}
+
+.sejarah-empty-text {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #718096;
+}
+
+.sejarah-empty-subtext {
+  font-size: 14px;
+  color: #cbd5e0;
+}
+
+/* ========== LOADING STATE ========== */
+
+.sejarah-loading-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: #718096;
+  font-size: 16px;
+}
+
+.sejarah-loading-spinner {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 5px solid #e2e8f0;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ========== ERROR STATE ========== */
+
+.sejarah-error-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: #fff5f5;
+  border-radius: 12px;
+  border: 2px solid #feb2b2;
+}
+
+.sejarah-error-icon {
+  font-size: 64px;
+  margin-bottom: 15px;
+  opacity: 0.7;
+}
+
+.sejarah-error-text {
+  color: #fc5c65;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* ========== DECORATIVE ELEMENTS ========== */
+
+/* Quote-like styling for important paragraphs */
+.sejarah-description p:first-of-type {
+  font-size: 1.1em;
+  font-weight: 500;
+  color: #2d3748;
+}
+
+/* Highlight box (optional, for future use) */
+.sejarah-highlight-box {
+  background: linear-gradient(135deg, rgba(102,126,234,0.05) 0%, rgba(118,75,162,0.05) 100%);
+  border-left: 4px solid #667eea;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 8px;
+}
+
+.sejarah-highlight-box p {
+  margin: 0;
+  color: #4a5568;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* ========== INFO BADGE ========== */
+
+.sejarah-info-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(102,126,234,0.3);
+}
+
+.sejarah-info-badge::before {
+  content: 'ℹ️';
+}
+
+/* ========== ANIMATIONS ========== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sejarah-content-card {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.sejarah-header h1 {
+  animation: slideInFromLeft 0.6s ease;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+@media (max-width: 768px) {
+  .sejarah-container {
+    padding: 15px;
+  }
+  
+  .sejarah-wrapper {
+    padding: 25px;
+    border-radius: 10px;
+  }
+  
+  .sejarah-header h1 {
+    font-size: 24px;
+  }
+  
+  .sejarah-content-card {
+    padding: 20px;
+  }
+  
+  .sejarah-description {
+    font-size: 15px;
+    line-height: 1.7;
+    text-align: left;
+  }
+  
+  .sejarah-description::first-letter {
+    font-size: 2.5em;
+  }
+  
+  .sejarah-timestamp {
+    text-align: left;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sejarah-wrapper {
+    padding: 20px;
+  }
+  
+  .sejarah-header h1 {
+    font-size: 20px;
+  }
+  
+  .sejarah-content-card {
+    padding: 16px;
+  }
+  
+  .sejarah-description {
+    font-size: 14px;
+  }
+  
+  .sejarah-description::first-letter {
+    font-size: 2em;
+  }
+  
+  .sejarah-empty-state {
+    padding: 60px 20px;
+  }
+  
+  .sejarah-empty-icon {
+    font-size: 60px;
+  }
+}
+
+/* ========== PRINT STYLES ========== */
+
+@media print {
+  .sejarah-container {
+    background: white;
+    padding: 0;
+  }
+  
+  .sejarah-wrapper {
+    box-shadow: none;
+    border-radius: 0;
+  }
+  
+  .sejarah-content-card::before {
+    display: none;
+  }
+  
+  .sejarah-timestamp {
+    page-break-before: avoid;
+  }
+}
+
+/* ========== SCROLLBAR STYLING ========== */
+
+.sejarah-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sejarah-wrapper::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.sejarah-wrapper::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+}
+
+.sejarah-wrapper::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
