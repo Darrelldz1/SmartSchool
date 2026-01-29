@@ -20,7 +20,8 @@ const upload = multer({ storage });
 // CREATE Guru
 router.post('/', auth(['admin']), upload.single('photo'), async (req, res) => {
   const { name, nip, date_joined, position, subject } = req.body;
-  const photo = req.file ? req.file.path : null;
+  const photo = req.file ? req.file.path.replace(/\\/g, "/") : null;
+
 
   try {
     const result = await pool.query(
@@ -47,7 +48,8 @@ router.get('/', async (req, res) => {
 router.put('/:id', auth(['admin']), upload.single('photo'), async (req, res) => {
   const { id } = req.params;
   const { name, nip, date_joined, position, subject } = req.body;
-  const photo = req.file ? req.file.path : null;
+  const photo = req.file ? req.file.path.replace(/\\/g, "/") : null;
+
 
   try {
     const result = await pool.query(

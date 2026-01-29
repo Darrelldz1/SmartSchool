@@ -7,7 +7,7 @@ const app = express();
 // === Middleware global ===
 app.use(cors());
 app.use(express.json()); // supaya bisa baca req.body JSON
-
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // === Import routes ===
 const authRoutes = require('./backend/src/routes/auth');
 const profileRoutes = require('./backend/src/routes/profile');
@@ -16,7 +16,7 @@ const newsRoutes = require('./backend/src/routes/news');
 const galleryRoutes = require('./backend/src/routes/gallery');
 const passwordRoutes = require('./backend/src/routes/password');
 const programRoutes = require('./backend/src/routes/program');
-const teacherRoutes = require('./backend/src/routes/teacher');
+const teachersRoutes = require('./backend/src/routes/teacher');
 const headmasterRoutes = require('./backend/src/routes/headmaster');
 const siswaRoutes = require('./backend/src/routes/siswaRoutes');
 const orangTuaRoutes = require('./backend/src/routes/orangTuaRoutes');
@@ -41,7 +41,7 @@ app.use('/api/news', newsRoutes);
 app.use('/api/gallery', galleryRoutes);
 app.use('/api/password', passwordRoutes);
 app.use('/api/program', programRoutes);
-app.use('/api/teacher', teacherRoutes);
+app.use('/api/teachers', teacherRoutes);
 app.use('/api/headmaster', headmasterRoutes);
 app.use('/api/siswaRoutes', siswaRoutes);
 app.use('/api/orang-tua', orangTuaRoutes);
